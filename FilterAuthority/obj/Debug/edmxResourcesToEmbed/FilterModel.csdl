@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FilterAuthorityModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="FilterAuthorityEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Modules" EntityType="FilterAuthorityModel.Modules" />
+    <EntitySet Name="Role" EntityType="FilterAuthorityModel.Role" />
+    <EntitySet Name="RoleModules" EntityType="FilterAuthorityModel.RoleModules" />
+    <EntitySet Name="User" EntityType="FilterAuthorityModel.User" />
+    <EntitySet Name="UserRole" EntityType="FilterAuthorityModel.UserRole" />
+    <AssociationSet Name="FK__RoleModul__Modul__20C1E124" Association="FilterAuthorityModel.FK__RoleModul__Modul__20C1E124">
+      <End Role="Modules" EntitySet="Modules" />
+      <End Role="RoleModules" EntitySet="RoleModules" />
+    </AssociationSet>
+    <AssociationSet Name="FK__RoleModul__RoleI__1FCDBCEB" Association="FilterAuthorityModel.FK__RoleModul__RoleI__1FCDBCEB">
+      <End Role="Role" EntitySet="Role" />
+      <End Role="RoleModules" EntitySet="RoleModules" />
+    </AssociationSet>
+    <AssociationSet Name="FK__UserRole__RoleId__1B0907CE" Association="FilterAuthorityModel.FK__UserRole__RoleId__1B0907CE">
+      <End Role="Role" EntitySet="Role" />
+      <End Role="UserRole" EntitySet="UserRole" />
+    </AssociationSet>
+    <AssociationSet Name="FK__UserRole__UserId__1A14E395" Association="FilterAuthorityModel.FK__UserRole__UserId__1A14E395">
+      <End Role="User" EntitySet="User" />
+      <End Role="UserRole" EntitySet="UserRole" />
+    </AssociationSet>
+    <EntitySet Name="View_RoleModules" EntityType="FilterAuthorityModel.View_RoleModules" />
+    <EntitySet Name="View_UserRole" EntityType="FilterAuthorityModel.View_UserRole" />
+  </EntityContainer>
+  <EntityType Name="Modules">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ModulesName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ParentId" Type="Int32" />
+    <Property Name="Path" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Weight" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="RoleModules" Relationship="FilterAuthorityModel.FK__RoleModul__Modul__20C1E124" FromRole="Modules" ToRole="RoleModules" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="RoleModules" Relationship="FilterAuthorityModel.FK__RoleModul__RoleI__1FCDBCEB" FromRole="Role" ToRole="RoleModules" />
+    <NavigationProperty Name="UserRole" Relationship="FilterAuthorityModel.FK__UserRole__RoleId__1B0907CE" FromRole="Role" ToRole="UserRole" />
+  </EntityType>
+  <EntityType Name="RoleModules">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleId" Type="Int32" />
+    <Property Name="ModuleId" Type="Int32" />
+    <NavigationProperty Name="Modules" Relationship="FilterAuthorityModel.FK__RoleModul__Modul__20C1E124" FromRole="RoleModules" ToRole="Modules" />
+    <NavigationProperty Name="Role" Relationship="FilterAuthorityModel.FK__RoleModul__RoleI__1FCDBCEB" FromRole="RoleModules" ToRole="Role" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="PassWord" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="UserRole" Relationship="FilterAuthorityModel.FK__UserRole__UserId__1A14E395" FromRole="User" ToRole="UserRole" />
+  </EntityType>
+  <EntityType Name="UserRole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="RoleId" Type="Int32" />
+    <NavigationProperty Name="Role" Relationship="FilterAuthorityModel.FK__UserRole__RoleId__1B0907CE" FromRole="UserRole" ToRole="Role" />
+    <NavigationProperty Name="User" Relationship="FilterAuthorityModel.FK__UserRole__UserId__1A14E395" FromRole="UserRole" ToRole="User" />
+  </EntityType>
+  <Association Name="FK__RoleModul__Modul__20C1E124">
+    <End Type="FilterAuthorityModel.Modules" Role="Modules" Multiplicity="0..1" />
+    <End Type="FilterAuthorityModel.RoleModules" Role="RoleModules" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Modules">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RoleModules">
+        <PropertyRef Name="ModuleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__RoleModul__RoleI__1FCDBCEB">
+    <End Type="FilterAuthorityModel.Role" Role="Role" Multiplicity="0..1" />
+    <End Type="FilterAuthorityModel.RoleModules" Role="RoleModules" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RoleModules">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__UserRole__RoleId__1B0907CE">
+    <End Type="FilterAuthorityModel.Role" Role="Role" Multiplicity="0..1" />
+    <End Type="FilterAuthorityModel.UserRole" Role="UserRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserRole">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__UserRole__UserId__1A14E395">
+    <End Type="FilterAuthorityModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="FilterAuthorityModel.UserRole" Role="UserRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserRole">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="View_RoleModules">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="ModulesName" />
+      <PropertyRef Name="Path" />
+      <PropertyRef Name="RoleName" />
+      <PropertyRef Name="Weight" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="ModulesName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ParentId" Type="Int32" />
+    <Property Name="Path" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="RoleId" Type="Int32" />
+    <Property Name="ModuleId" Type="Int32" />
+    <Property Name="RoleName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Weight" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="View_UserRole">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="Name" />
+      <PropertyRef Name="PassWord" />
+      <PropertyRef Name="RoleName" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="PassWord" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="RoleId" Type="Int32" />
+    <Property Name="RoleName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+</Schema>

@@ -1,0 +1,33 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <script src="~/scripts/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+    <div> 
+        用户名：<input type="text" name="username" value="" id="username" /><br/>
+        密码：<input type="password" name="password" value="" id="password"/><br/>
+        <input type="button" value="登录" id="login"/>
+    </div>
+    <script>
+        $("#login").click(function () {
+            $.post("/Home/Logins", { username: $("#username").val(), password: $("#password").val() }, function (res) {
+                if (res.success) {
+                    alert("登录成功");
+                    location.href = "/Home/Index";
+                } else {
+                    alert("登录失败："+res.msg);
+                }
+            },"json");
+        });
+    </script>
+</body>
+</html>

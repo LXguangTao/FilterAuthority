@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4fa3559d04b243b1b7b6e167b4056f07" Name="Diagram1">
+        <EntityTypeShape EntityType="FilterAuthorityModel.Modules" Width="1.5" PointX="0.75" PointY="6.625" />
+        <EntityTypeShape EntityType="FilterAuthorityModel.Role" Width="1.5" PointX="0.75" PointY="3.875" />
+        <EntityTypeShape EntityType="FilterAuthorityModel.RoleModules" Width="1.5" PointX="3" PointY="0.75" />
+        <EntityTypeShape EntityType="FilterAuthorityModel.User" Width="1.5" PointX="0.75" PointY="0.875" />
+        <EntityTypeShape EntityType="FilterAuthorityModel.UserRole" Width="1.5" PointX="3" PointY="3.75" />
+        <AssociationConnector Association="FilterAuthorityModel.FK__RoleModul__Modul__20C1E124" />
+        <AssociationConnector Association="FilterAuthorityModel.FK__RoleModul__RoleI__1FCDBCEB" />
+        <AssociationConnector Association="FilterAuthorityModel.FK__UserRole__RoleId__1B0907CE" />
+        <AssociationConnector Association="FilterAuthorityModel.FK__UserRole__UserId__1A14E395" />
+        <EntityTypeShape EntityType="FilterAuthorityModel.View_RoleModules" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="FilterAuthorityModel.View_UserRole" Width="1.5" PointX="5.375" PointY="4.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
