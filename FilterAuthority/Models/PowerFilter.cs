@@ -10,7 +10,12 @@ namespace FilterAuthority.Models
     {
         public void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            //string user = filterContext.HttpContext.User.Identity.Name;            
+            //string user = filterContext.HttpContext.User.Identity.Name;
+            //using (FilterAuthorityEntities m = new FilterAuthorityEntities())
+            //{
+            //    string RoleName = m.View_UserRole.FirstOrDefault(x => x.Name == user).RoleName;
+            //    filterContext.Result = new RedirectResult("~/home/index?RoleName=" + RoleName);
+            //}
         }
 
         public void OnActionExecuting(ActionExecutingContext filterContext)
