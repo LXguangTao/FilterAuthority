@@ -4,35 +4,25 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using FilterAuthority.Models;
+using FilterAuthority.App_Start;
 
 namespace FilterAuthority.Controllers
 {
     [Authorize]
+    
     public class HomeController : Controller
     {
         // GET: Home
         public ActionResult Index()
         {
-            string user = this.User.Identity.Name;
+            string user = this.User.Identity.Name; 
             using (FilterAuthorityEntities m = new FilterAuthorityEntities())
              {
                 string RoleName = m.View_UserRole.FirstOrDefault(x => x.Name == user).RoleName;
                 var Modules = m.View_RoleModules.Where(x => x.RoleName == RoleName && x.ParentId!=null).OrderBy(x=>x.Weight).ToList();
-                var BigModules = m.View_RoleModules.Where(x => x.RoleName == RoleName && x.ParentId == null).OrderBy(x => x.Weight).ToList();
-                //List<View_RoleModules> role = new List<View_RoleModules>();
-                List<View_RoleModules>[] roles = null;
-                for (int j=0;j<Modules.Count();j++)
-                {
-                    foreach (var i in BigModules)
-                    {
-                        if (Modules[j].Id==i.ParentId)
-                        {
-                            roles[j].Add(i);
-                        }
-                    }
-                }
-                
-                ViewBag.role = roles;
+                var BigModules = m.View_RoleModules.Where(x => x.RoleName == RoleName && x.ParentId == null).OrderBy(x => x.Weight).ToList();               
+                ViewBag.role = Modules;
                 ViewBag.bigrole = BigModules;
             }
             return View();
@@ -63,32 +53,44 @@ namespace FilterAuthority.Controllers
         {
             return View();
         }
+        [MyAuth]
         public ActionResult SignOut()
         {
             FormsAuthentication.SignOut();
             return Redirect("~/Home/Login");
         }
+        [MyAuth]
         public ActionResult AddUser()
         {
             return View();
         }
+        [MyAuth]
         public ActionResult AlterUser()
         {
             return View();
         }
+        [MyAuth]
         public ActionResult SelfInfo()
         {
             return View();
         }
+        [MyAuth]
         public ActionResult DeleteUser()
         {
             return View();
         }
+        [MyAuth]
         public ActionResult SelfChangePwd()
         {
             return View();
         }
+        [MyAuth]
         public ActionResult PowerManager()
+        {
+            return View();
+        }
+        [MyAuth]
+        public ActionResult CheckUser()
         {
             return View();
         }
