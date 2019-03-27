@@ -72,17 +72,16 @@
                             <ul class="sub-menu">                  
                                 @foreach (var j in ViewBag.role as List<View_RoleModules>)
                                 {
-                                    if (i.Id != j.ParentId)
+                                    if (i.ModuleId != j.ParentId)
                                     {
                                         continue;
                                     }
-                                        <li>
-                                            <a _href="@j.Path">
-                                                <i class="iconfont">&#xe6a7;</i>
-                                                <cite>@j.ModulesName</cite>
-                                            </a>
-                                        </li>
-                                   
+                                    <li>
+                                        <a _href="@j.Path">
+                                            <i class="iconfont">&#xe6a7;</i>
+                                            <cite>@j.ModulesName</cite>
+                                        </a>
+                                    </li>
                                 }
                             </ul>
                         </li>
