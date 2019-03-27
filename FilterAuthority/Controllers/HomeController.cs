@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using FilterAuthority.Models;
 using FilterAuthority.App_Start;
+using System.Data.SqlClient;
 
 namespace FilterAuthority.Controllers
 {
@@ -19,11 +20,9 @@ namespace FilterAuthority.Controllers
             string user = this.User.Identity.Name; 
             using (FilterAuthorityEntities m = new FilterAuthorityEntities())
              {
-                string RoleName = m.View_UserRole.FirstOrDefault(x => x.Name == user).RoleName;
-                var Modules = m.View_RoleModules.Where(x => x.RoleName == RoleName && x.ParentId!=null).OrderBy(x=>x.Weight).ToList();
-                var BigModules = m.View_RoleModules.Where(x => x.RoleName == RoleName && x.ParentId == null).OrderBy(x => x.Weight).ToList();               
-                ViewBag.role = Modules;
-                ViewBag.bigrole = BigModules;
+                string sql = "select r.Id,r.ModulesName,r.ParentId,r.[Path],r.RoleId,r.ModuleId,r.RoleName,r.[Weight],u.Name,u.UserId from View_RoleModules r inner join View_UserRole u on r.RoleId = u.RoleId where Name =@name";
+                SqlParameter name = new SqlParameter("@name", user);
+                ViewBag.sql = m.Database.SqlQuery<data>(sql, name).ToList();
             }
             return View();
         }

@@ -1,4 +1,4 @@
-﻿
+﻿@using FilterAuthority.Models
 @{
     Layout = null;
 }
@@ -60,31 +60,35 @@
     <div class="left-nav">
         <div id="side-nav">
             <ul id="nav">                
-                @{ 
-                    foreach (var i in ViewBag.bigrole as List<View_RoleModules>)
+                @{
+                    foreach (var i in ViewBag.sql as List<data>)
                     {
-                        <li>
-                            <a href="javascript:;">
-                                <i class="iconfont">&#xe6b8;</i>
-                                <cite>@i.ModulesName</cite>
-                                <i class="iconfont nav_right">&#xe697;</i>
-                            </a>
-                            <ul class="sub-menu">                  
-                                @foreach (var j in ViewBag.role as List<View_RoleModules>)
-                                {
-                                    if (i.ModuleId != j.ParentId)
+                        if (i.ParentId == null)
+                        {
+                            <li>
+                                <a href="javascript:;">
+                                    <i class="iconfont">&#xe6b8;</i>
+                                    <cite>@i.ModulesName</cite>
+                                    <i class="iconfont nav_right">&#xe697;</i>
+                                </a>
+                                <ul class="sub-menu">
+                                    @foreach (var j in ViewBag.sql as List<data>)
                                     {
-                                        continue;
+                                        if (i.ModuleId != j.ParentId)
+                                        {
+                                            continue;
+                                        }
+                                        <li>
+                                            <a _href="@j.Path">
+                                                <i class="iconfont">&#xe6a7;</i>
+                                                <cite>@j.ModulesName</cite>
+                                            </a>
+                                        </li>
                                     }
-                                    <li>
-                                        <a _href="@j.Path">
-                                            <i class="iconfont">&#xe6a7;</i>
-                                            <cite>@j.ModulesName</cite>
-                                        </a>
-                                    </li>
-                                }
-                            </ul>
-                        </li>
+                                </ul>
+                            </li>
+                        }
+
                     }
                 }   
             </ul>
